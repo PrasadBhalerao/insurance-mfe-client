@@ -1,0 +1,53 @@
+@use 'variables' as *;
+
+@mixin card {
+  background: $card-bg;
+  border-radius: $radius-md;
+  box-shadow: $shadow-sm;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}
+
+@mixin btn($bg-color) {
+  display: inline-block;
+  padding: 10px 20px;
+  border: none;
+  border-radius: $radius-md;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  background: $bg-color;
+  color: white;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  text-align: center;
+
+  &:hover {
+    background: darken($bg-color, 10%);
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+@mixin badge($bg, $color) {
+  display: inline-block;
+  padding: $spacing-xs 12px;
+  border-radius: $radius-full;
+  font-size: 12px;
+  font-weight: 600;
+  background: $bg;
+  color: $color;
+}
+
+@mixin responsive($breakpoint) {
+  @if $breakpoint == tablet {
+    @media (max-width: 768px) { @content; }
+  } @else if $breakpoint == mobile {
+    @media (max-width: 480px) { @content; }
+  }
+}

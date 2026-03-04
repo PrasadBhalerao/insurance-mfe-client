@@ -1,0 +1,49 @@
+<div class="policy-list">
+  <div class="header">
+    <h2>My Insurance Policies</h2>
+    <div class="filter-bar">
+      <button [class.active]="activeFilter === 'all'" (click)="filterPolicies('all')">All</button>
+      <button [class.active]="activeFilter === 'active'" (click)="filterPolicies('active')">Active</button>
+      <button [class.active]="activeFilter === 'expired'" (click)="filterPolicies('expired')">Expired</button>
+      <button [class.active]="activeFilter === 'pending'" (click)="filterPolicies('pending')">Pending</button>
+    </div>
+  </div>
+
+  <div class="policies-grid">
+    <div class="policy-card" *ngFor="let policy of filteredPolicies">
+      <div class="policy-header">
+        <span class="policy-type">{{ policy.type | titlecase }}</span>
+        <span class="badge" [ngClass]="'badge-' + policy.status">{{ policy.status | titlecase }}</span>
+      </div>
+      <h3>{{ policy.description }}</h3>
+      <div class="policy-details">
+        <div class="detail">
+          <span class="label">Policy #</span>
+          <span class="value">{{ policy.policyNumber }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Coverage</span>
+          <span class="value">&#x20B9;{{ policy.coverageAmount | number }}</span>
+        </div>
+        <div class="detail">
+          <span class="label">Premium</span>
+          <span class="value">&#x20B9;{{ policy.premiumAmount | number }}/yr</span>
+        </div>
+        <div class="detail">
+          <span class="label">Valid</span>
+          <span class="value">{{ policy.startDate }} to {{ policy.endDate }}</span>
+        </div>
+      </div>
+      <div class="policy-actions">
+        <button class="btn btn-outline" [routerLink]="['policy', policy.id]">View Details</button>
+        <button class="btn btn-primary" *ngIf="policy.status === 'active'" (click)="payPremium(policy)">
+          Pay Premium
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="filteredPolicies.length === 0">
+    <p>No policies found for the selected filter.</p>
+  </div>
+</div>

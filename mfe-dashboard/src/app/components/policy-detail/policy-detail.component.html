@@ -1,0 +1,50 @@
+<div class="policy-detail" *ngIf="policy">
+  <div class="back-link">
+    <a routerLink="/dashboard">&larr; Back to Policies</a>
+  </div>
+
+  <div class="detail-card">
+    <div class="detail-header">
+      <div>
+        <h2>{{ policy.description }}</h2>
+        <p class="policy-number">{{ policy.policyNumber }}</p>
+      </div>
+      <span class="badge" [ngClass]="'badge-' + policy.status">{{ policy.status | titlecase }}</span>
+    </div>
+
+    <div class="detail-grid">
+      <div class="detail-item">
+        <span class="label">Policy Type</span>
+        <span class="value">{{ policy.type | titlecase }} Insurance</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Holder Name</span>
+        <span class="value">{{ policy.holderName }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Coverage Amount</span>
+        <span class="value highlight">&#x20B9;{{ policy.coverageAmount | number }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Annual Premium</span>
+        <span class="value highlight">&#x20B9;{{ policy.premiumAmount | number }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">Start Date</span>
+        <span class="value">{{ policy.startDate }}</span>
+      </div>
+      <div class="detail-item">
+        <span class="label">End Date</span>
+        <span class="value">{{ policy.endDate }}</span>
+      </div>
+    </div>
+
+    <div class="detail-actions" *ngIf="policy.status === 'active'">
+      <button class="btn btn-primary" (click)="payPremium()">Pay Premium</button>
+    </div>
+  </div>
+</div>
+
+<div class="loading" *ngIf="!policy">
+  <p>Loading policy details...</p>
+</div>

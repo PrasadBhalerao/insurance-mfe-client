@@ -1,0 +1,318 @@
+@use 'variables' as *;
+
+.payment-form {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px 20px;
+
+  > h2 {
+    color: $primary-color;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+
+  .section {
+    margin-bottom: 32px;
+
+    h3 {
+      color: $primary-color;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+  }
+}
+
+// Policy selection grid
+.policy-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.policy-select-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: white;
+  border: 2px solid $border-color;
+  border-radius: 10px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: $primary-light;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .policy-type-icon {
+    font-size: 36px;
+  }
+
+  .policy-info {
+    h4 {
+      font-size: 14px;
+      color: $primary-color;
+      margin-bottom: 2px;
+    }
+
+    .policy-num {
+      font-size: 12px;
+      color: $text-light;
+    }
+
+    .premium {
+      font-size: 18px;
+      font-weight: 700;
+      color: $primary-light;
+      margin-top: 4px;
+    }
+  }
+}
+
+// Selected policy
+.selected-policy-card {
+  background: white;
+  border: 2px solid $primary-light;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+
+  .selected-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+
+  .policy-meta {
+    font-size: 13px;
+    color: $text-light;
+    margin-top: 4px;
+  }
+}
+
+// Calculation section
+.calculation-section {
+  background: white;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .worker-badge {
+    font-size: 11px;
+    background: #ebf8ff;
+    color: #2b6cb0;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: 600;
+  }
+}
+
+.loading-indicator {
+  text-align: center;
+  padding: 32px 0;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid $border-color;
+    border-top-color: $primary-light;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 12px;
+  }
+
+  p {
+    color: $text-light;
+    font-size: 14px;
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.calculation-result {
+  .breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid $border-color;
+    font-size: 14px;
+
+    &.total-row {
+      border-bottom: none;
+      border-top: 2px solid $primary-color;
+      margin-top: 8px;
+      padding-top: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      color: $primary-color;
+    }
+
+    .negative {
+      color: $accent-color;
+    }
+  }
+
+  .monthly-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #f0fff4;
+    border-radius: 6px;
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: $accent-color;
+  }
+}
+
+// Payment method
+.payment-method-section {
+  margin-bottom: 24px;
+
+  h3 {
+    color: $primary-color;
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+}
+
+.method-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.method-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px;
+  border: 2px solid $border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+  min-width: 160px;
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  .method-icon {
+    font-size: 24px;
+  }
+
+  &.selected {
+    border-color: $primary-light;
+    background: #ebf8ff;
+  }
+
+  &:hover {
+    border-color: $primary-light;
+  }
+}
+
+// Buttons
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+
+  &-primary {
+    background: $primary-light;
+    color: white;
+    &:hover { background: $primary-color; }
+  }
+
+  &-success {
+    background: $accent-color;
+    color: white;
+    &:hover { background: darken($accent-color, 10%); }
+  }
+
+  &-outline {
+    background: white;
+    border: 1px solid $border-color;
+    color: $text-color;
+    &:hover { border-color: $primary-light; color: $primary-light; }
+  }
+
+  &-sm {
+    padding: 6px 14px;
+    font-size: 13px;
+  }
+
+  &-lg {
+    padding: 14px 40px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.submit-section {
+  margin-bottom: 24px;
+}
+
+// Success
+.success-message {
+  text-align: center;
+  background: white;
+  border-radius: 12px;
+  padding: 48px 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .success-icon {
+    font-size: 64px;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    color: $accent-color;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    color: $text-light;
+    margin-bottom: 24px;
+  }
+
+  .success-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: $text-light;
+}

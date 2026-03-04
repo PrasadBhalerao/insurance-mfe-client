@@ -1,0 +1,49 @@
+@use 'variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: $text-color;
+  background-color: $bg-color;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+
+  &-active {
+    background: #c6f6d5;
+    color: #22543d;
+  }
+  &-expired {
+    background: #fed7d7;
+    color: #742a2a;
+  }
+  &-pending {
+    background: #fefcbf;
+    color: #744210;
+  }
+  &-completed {
+    background: #c6f6d5;
+    color: #22543d;
+  }
+  &-failed {
+    background: #fed7d7;
+    color: #742a2a;
+  }
+}

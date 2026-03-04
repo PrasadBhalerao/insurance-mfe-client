@@ -1,0 +1,118 @@
+<div class="payment-form">
+  <h2>Premium Payment</h2>
+
+  <!-- Policy Selection -->
+  <div class="section" *ngIf="!selectedPolicy">
+    <h3>Select a Policy to Pay</h3>
+    <div class="policy-select-grid">
+      <div
+        class="policy-select-card"
+        *ngFor="let policy of policies"
+        (click)="selectPolicy(policy)"
+      >
+        <div class="policy-type-icon">
+          <span *ngIf="policy.type === 'health'">&#x1F3E5;</span>
+          <span *ngIf="policy.type === 'auto'">&#x1F697;</span>
+          <span *ngIf="policy.type === 'home'">&#x1F3E0;</span>
+          <span *ngIf="policy.type === 'life'">&#x2764;&#xFE0F;</span>
+        </div>
+        <div class="policy-info">
+          <h4>{{ policy.description }}</h4>
+          <p class="policy-num">{{ policy.policyNumber }}</p>
+          <p class="premium">&#x20B9;{{ policy.premiumAmount | number }}/yr</p>
+        </div>
+      </div>
+    </div>
+    <div class="empty-state" *ngIf="policies.length === 0">
+      <p>No active policies found for payment.</p>
+    </div>
+  </div>
+
+  <!-- Selected Policy & Payment Flow -->
+  <div class="section" *ngIf="selectedPolicy">
+    <div class="selected-policy-card">
+      <div class="selected-header">
+        <h3>{{ selectedPolicy.description }}</h3>
+        <button class="btn btn-outline btn-sm" (click)="clearSelection()">Change</button>
+      </div>
+      <p class="policy-meta">
+        {{ selectedPolicy.policyNumber }} &middot; {{ selectedPolicy.type | titlecase }} Insurance
+      </p>
+    </div>
+
+    <!-- Premium Calculation (Web Worker) -->
+    <div class="calculation-section">
+      <h3>
+        Premium Calculation
+        <span class="worker-badge">&#x26A1; Web Worker</span>
+      </h3>
+
+      <div class="loading-indicator" *ngIf="isCalculating">
+        <div class="spinner"></div>
+        <p>Calculating premium via Web Worker...</p>
+      </div>
+
+      <div class="calculation-result" *ngIf="calculationResult && !isCalculating">
+        <div
+          class="breakdown-row"
+          *ngFor="let item of calculationResult.breakdown"
+          [class.total-row]="item.label === 'Total'"
+        >
+          <span class="breakdown-label">{{ item.label }}</span>
+          <span class="breakdown-amount" [class.negative]="item.amount < 0">
+            {{ item.amount >= 0 ? '' : '-' }}&#x20B9;{{ (item.amount >= 0 ? item.amount : -item.amount) | number:'1.2-2' }}
+          </span>
+        </div>
+        <div class="monthly-row">
+          <span>Monthly Equivalent</span>
+          <span>&#x20B9;{{ calculationResult.monthlyAmount | number:'1.2-2' }}/mo</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="payment-method-section" *ngIf="calculationResult && !isCalculating && !paymentSuccess">
+      <h3>Payment Method</h3>
+      <div class="method-options">
+        <label class="method-option" [class.selected]="paymentMethod === 'credit_card'">
+          <input type="radio" name="method" value="credit_card" [(ngModel)]="paymentMethod" />
+          <span class="method-icon">&#x1F4B3;</span>
+          <span>Credit Card</span>
+        </label>
+        <label class="method-option" [class.selected]="paymentMethod === 'debit_card'">
+          <input type="radio" name="method" value="debit_card" [(ngModel)]="paymentMethod" />
+          <span class="method-icon">&#x1F3E7;</span>
+          <span>Debit Card</span>
+        </label>
+        <label class="method-option" [class.selected]="paymentMethod === 'bank_transfer'">
+          <input type="radio" name="method" value="bank_transfer" [(ngModel)]="paymentMethod" />
+          <span class="method-icon">&#x1F3E6;</span>
+          <span>Bank Transfer</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-section" *ngIf="calculationResult && !isCalculating && !paymentSuccess">
+      <button
+        class="btn btn-success btn-lg"
+        [disabled]="isProcessing"
+        (click)="processPayment()"
+      >
+        <span *ngIf="!isProcessing">Pay &#x20B9;{{ calculationResult.totalAmount | number:'1.2-2' }}</span>
+        <span *ngIf="isProcessing">Processing Payment...</span>
+      </button>
+    </div>
+
+    <!-- Success -->
+    <div class="success-message" *ngIf="paymentSuccess">
+      <div class="success-icon">&#x2705;</div>
+      <h3>Payment Successful!</h3>
+      <p>Your premium of &#x20B9;{{ calculationResult?.totalAmount | number:'1.2-2' }} has been processed.</p>
+      <div class="success-actions">
+        <button class="btn btn-outline" (click)="clearSelection()">Make Another Payment</button>
+        <a class="btn btn-primary" routerLink="/payment/history">View Payment History</a>
+      </div>
+    </div>
+  </div>
+</div>

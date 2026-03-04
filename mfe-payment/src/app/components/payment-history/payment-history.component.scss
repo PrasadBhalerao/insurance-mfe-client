@@ -1,0 +1,107 @@
+@use 'variables' as *;
+
+.payment-history {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 32px 20px;
+
+  h2 {
+    color: $primary-color;
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+}
+
+.table-wrapper {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+
+  th, td {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 14px;
+  }
+
+  thead {
+    background: $primary-color;
+
+    th {
+      color: white;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid $border-color;
+      transition: background 0.15s;
+
+      &:hover {
+        background: #f7fafc;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  .txn-id {
+    font-family: monospace;
+    font-size: 13px;
+    color: $text-light;
+  }
+
+  .amount {
+    font-weight: 600;
+    color: $primary-color;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+
+    &-completed { background: #c6f6d5; color: #22543d; }
+    &-pending { background: #fefcbf; color: #744210; }
+    &-failed { background: #fed7d7; color: #742a2a; }
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-light;
+
+  p {
+    margin-bottom: 16px;
+    font-size: 16px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 10px 24px;
+    background: $primary-light;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+
+    &:hover {
+      background: $primary-color;
+    }
+  }
+}

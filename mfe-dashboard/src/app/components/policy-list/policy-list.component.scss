@@ -1,0 +1,168 @@
+@use 'variables' as *;
+
+.policy-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 20px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    h2 {
+      color: $primary-color;
+      font-size: 28px;
+    }
+  }
+
+  .filter-bar {
+    display: flex;
+    gap: 8px;
+
+    button {
+      padding: 8px 16px;
+      border: 1px solid $border-color;
+      background: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: $text-color;
+      transition: all 0.2s;
+
+      &:hover {
+        border-color: $primary-light;
+        color: $primary-light;
+      }
+
+      &.active {
+        background: $primary-light;
+        color: white;
+        border-color: $primary-light;
+      }
+    }
+  }
+
+  .policies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 20px;
+  }
+
+  .policy-card {
+    background: white;
+    border-radius: 10px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .policy-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+
+      .policy-type {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: $text-light;
+        font-weight: 600;
+      }
+    }
+
+    h3 {
+      font-size: 16px;
+      color: $primary-color;
+      margin-bottom: 16px;
+      line-height: 1.4;
+    }
+
+    .policy-details {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 20px;
+
+      .detail {
+        .label {
+          display: block;
+          font-size: 11px;
+          color: $text-light;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+
+        .value {
+          font-size: 14px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .policy-actions {
+      display: flex;
+      gap: 8px;
+
+      .btn {
+        flex: 1;
+        padding: 10px 16px;
+        border-radius: 6px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        transition: all 0.2s;
+
+        &-outline {
+          background: white;
+          border: 1px solid $border-color;
+          color: $text-color;
+
+          &:hover {
+            border-color: $primary-light;
+            color: $primary-light;
+          }
+        }
+
+        &-primary {
+          background: $primary-light;
+          border: 1px solid $primary-light;
+          color: white;
+
+          &:hover {
+            background: $primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+
+    &-active { background: #c6f6d5; color: #22543d; }
+    &-expired { background: #fed7d7; color: #742a2a; }
+    &-pending { background: #fefcbf; color: #744210; }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: $text-light;
+    font-size: 16px;
+  }
+}

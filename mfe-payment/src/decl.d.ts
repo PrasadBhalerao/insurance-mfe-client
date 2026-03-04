@@ -1,0 +1,1 @@
+/* No remote module declarations needed for this MFE */

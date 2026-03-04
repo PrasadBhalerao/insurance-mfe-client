@@ -1,0 +1,37 @@
+<div class="payment-history">
+  <h2>Payment History</h2>
+
+  <div class="table-wrapper" *ngIf="payments.length > 0">
+    <table class="history-table">
+      <thead>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Policy</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Method</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments">
+          <td class="txn-id">{{ payment.transactionId }}</td>
+          <td>{{ payment.policyNumber }}</td>
+          <td class="amount">&#x20B9;{{ payment.amount | number:'1.2-2' }}</td>
+          <td>{{ payment.date }}</td>
+          <td>{{ formatMethod(payment.method) }}</td>
+          <td>
+            <span class="badge" [ngClass]="'badge-' + payment.status">
+              {{ payment.status | titlecase }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty-state" *ngIf="payments.length === 0">
+    <p>No payment records found.</p>
+    <a class="btn btn-primary" routerLink="/payment">Make a Payment</a>
+  </div>
+</div>
