@@ -1,0 +1,31 @@
+[build]
+  base = "."
+  command = "cd container && npm install && npm run build && cd ../mfe-dashboard && npm install && npm run build && cd ../mfe-payment && npm install && npm run build && cd .. && mkdir -p container/dist/mfe-dashboard && cp -r mfe-dashboard/dist/* container/dist/mfe-dashboard/ && mkdir -p container/dist/mfe-payment && cp -r mfe-payment/dist/* container/dist/mfe-payment/"
+  publish = "container/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# SPA redirect for Angular client-side routing
+[[redirects]]
+  from = "/mfe-dashboard/*"
+  to = "/mfe-dashboard/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/mfe-payment/*"
+  to = "/mfe-payment/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
